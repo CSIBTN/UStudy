@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UStudy</string>
+    <string name="pomodoro_desc">pomodoro</string>
+    <string name="time">%1$d:%2$d:%3$d</string>
+    <string-array name="timer_list">
+        <item>00:25:00</item>
+        <item>00:30:00</item>
+        <item>01:00:00</item>
+        <item>01:30:00</item>
+    </string-array>
+</resources>

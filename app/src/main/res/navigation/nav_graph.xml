@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pomodoroFragment">
+
+    <fragment
+        android:id="@+id/pomodoroFragment"
+        android:name="com.example.ustudy.ui.views.PomodoroFragment"
+        android:label="PomodoroFragment" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.example.ustudy.ui.views.NotesFragment"
+        android:label="NotesFragment" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.ustudy.ui.views.CalendarFragment"
+        android:label="CalendarFragment" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.ustudy.ui.views.StatisticsFragment"
+        android:label="StatisticsFragment" />
+</navigation>
