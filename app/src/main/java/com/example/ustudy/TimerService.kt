@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.ustudy.util.UStudyApplication
 import com.example.ustudy.util.Util
+import com.example.ustudy.util.Util.DEFAULT_POMODORO_TIME
 import com.example.ustudy.util.Util.POMODORO_NOTIFICATION_ID
 import com.example.ustudy.util.Util.getTimeStringFromDouble
 import java.util.*
@@ -24,7 +25,7 @@ class TimerService : Service() {
     private val timer = Timer()
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val time = intent.getDoubleExtra(TIME_EXTRA, 0.0)
+        val time = intent.getDoubleExtra(TIME_EXTRA, DEFAULT_POMODORO_TIME)
         timer.scheduleAtFixedRate(TimeTask(time), 0, 1000)
 
         startForeground(POMODORO_NOTIFICATION_ID, createNotification(time))

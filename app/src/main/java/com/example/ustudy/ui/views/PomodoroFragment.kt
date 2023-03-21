@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,26 +33,65 @@ class PomodoroFragment : Fragment() {
         get() = checkNotNull(_pomodoroBinding) {
             Util.bindingErrorMessage("pomodoro")
         }
+
     private val pomodoroViewModel: PomodoroViewModel by viewModels()
     private lateinit var serviceIntent: Intent
-
     private val notificationManager =
         UStudyApplication.getApplicationContext()
             .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    private val timerBroadCastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, intent: Intent) {
+            pomodoroViewModel.updateTime(
+                intent.getDoubleExtra(
+                    TimerService.TIME_EXTRA,
+                    INTERMEDIATE_POMODORO_TIME
+                )
+            )
+            notificationManager.notify(
+                POMODORO_NOTIFICATION_ID,
+                TimerService.createNotification(pomodoroViewModel.time)
+            )
+            pomodoroBinding.textView.text = getTimeStringFromDouble(pomodoroViewModel.time)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        pomodoroViewModel.setFirstTimeSelected(true)
         _pomodoroBinding = FragmentPomodoroBinding.inflate(inflater, container, false)
-        serviceIntent = Intent(requireActivity().applicationContext, TimerService::class.java)
+        setUpTimerVariables()
+        setUpSpinnerListeners()
+        setUpButtonListeners()
+        setUpSpinnerAdapter()
+        return pomodoroBinding.root
+    }
 
+
+    private fun setUpTimerVariables() {
+        pomodoroViewModel.setFirstTimeSelected(true)
+        serviceIntent = Intent(requireActivity().applicationContext, TimerService::class.java)
         requireActivity().registerReceiver(
             timerBroadCastReceiver,
             IntentFilter(TimerService.TIMER_UPDATED)
         )
+    }
+
+    private fun setUpButtonListeners() {
+        pomodoroBinding.btnStartTimer.setOnClickListener {
+            startTimer()
+        }
+        pomodoroBinding.btnPauseTimer.setOnClickListener {
+            pauseTimer()
+        }
+        pomodoroBinding.btnStopTimer.setOnClickListener {
+            stopTimer()
+        }
+    }
+
+    private fun setUpSpinnerListeners() {
         pomodoroBinding.spTimer.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -77,38 +115,9 @@ class PomodoroFragment : Fragment() {
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
             }
-        return pomodoroBinding.root
     }
 
-    private val timerBroadCastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, intent: Intent) {
-            pomodoroViewModel.updateTime(
-                intent.getDoubleExtra(
-                    TimerService.TIME_EXTRA,
-                    INTERMEDIATE_POMODORO_TIME
-                )
-            )
-            notificationManager.notify(
-                POMODORO_NOTIFICATION_ID,
-                TimerService.createNotification(pomodoroViewModel.time)
-            )
-            pomodoroBinding.textView.text = getTimeStringFromDouble(pomodoroViewModel.time)
-        }
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        pomodoroBinding.btnStartTimer.setOnClickListener {
-            startTimer()
-        }
-        pomodoroBinding.btnPauseTimer.setOnClickListener {
-            pauseTimer()
-        }
-        pomodoroBinding.btnStopTimer.setOnClickListener {
-            stopTimer()
-        }
-
+    private fun setUpSpinnerAdapter() {
         val spinner = pomodoroBinding.spTimer
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -120,8 +129,8 @@ class PomodoroFragment : Fragment() {
         }
     }
 
+
     private fun startTimer() {
-        Log.d("THE VALUE OF TIME : ", "${pomodoroViewModel.time}")
         serviceIntent.putExtra(TimerService.TIME_EXTRA, pomodoroViewModel.time)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             requireActivity().startForegroundService(serviceIntent)
@@ -131,20 +140,12 @@ class PomodoroFragment : Fragment() {
     }
 
     private fun pauseTimer() {
-        Log.d("THE VALUE OF TIME : ", "${pomodoroViewModel.time}")
         requireActivity().stopService(serviceIntent)
     }
 
     private fun stopTimer() {
-        Log.d("THE VALUE OF TIME : ", "${pomodoroViewModel.time}")
         pauseTimer()
         pomodoroViewModel.updateTime(DEFAULT_POMODORO_TIME)
         pomodoroBinding.textView.text = getTimeStringFromDouble(pomodoroViewModel.time)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _pomodoroBinding = null
-    }
-
 }
