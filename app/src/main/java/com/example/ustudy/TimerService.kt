@@ -6,6 +6,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.ustudy.util.UStudyApplication
 import com.example.ustudy.util.Util
@@ -34,6 +35,7 @@ class TimerService : Service() {
     private inner class TimeTask(private var time: Double) : TimerTask() {
         override fun run() {
             val intent = Intent(TIMER_UPDATED)
+            Log.d("THE VALUE OF TIME : ", "$time")
             time--
             intent.putExtra(TIME_EXTRA, time)
             sendBroadcast(intent)
@@ -54,7 +56,6 @@ class TimerService : Service() {
                 .setSmallIcon(R.drawable.tomato_ic)
                 .setContentText(getTimeStringFromDouble(time))
                 .build()
-
     }
 
     override fun onDestroy() {

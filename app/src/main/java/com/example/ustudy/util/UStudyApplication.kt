@@ -18,7 +18,7 @@ class UStudyApplication : Application() {
                 NotificationChannel(
                     Util.POMODORO_CHANNEL_ID,
                     "Pomodoro",
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_DEFAULT
                 )
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
@@ -30,4 +30,5 @@ class UStudyApplication : Application() {
             return instance!!.applicationContext
         }
     }
+
 }
