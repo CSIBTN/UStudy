@@ -1,5 +1,6 @@
 package com.example.ustudy.ui.views
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -16,8 +17,10 @@ import androidx.fragment.app.Fragment
 import com.example.ustudy.R
 import com.example.ustudy.TimerService
 import com.example.ustudy.databinding.FragmentPomodoroBinding
+import com.example.ustudy.util.UStudyApplication
 import com.example.ustudy.util.Util
-import kotlin.math.roundToInt
+import com.example.ustudy.util.Util.POMODORO_NOTIFICATION_ID
+import com.example.ustudy.util.Util.getTimeStringFromDouble
 import kotlin.properties.Delegates
 
 class PomodoroFragment : Fragment() {
@@ -29,6 +32,10 @@ class PomodoroFragment : Fragment() {
     private lateinit var serviceIntent: Intent
     private var time by Delegates.notNull<Double>()
     private var isFirstTimeSelected by Delegates.notNull<Boolean>()
+
+    private val notificationManager =
+        UStudyApplication.getApplicationContext()
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,20 +78,14 @@ class PomodoroFragment : Fragment() {
     private val timerBroadCastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
+            notificationManager.notify(
+                POMODORO_NOTIFICATION_ID,
+                TimerService.createNotification(time)
+            )
             pomodoroBinding.textView.text = getTimeStringFromDouble(time)
         }
     }
 
-    private fun getTimeStringFromDouble(time: Double): String {
-        val resultInt = time.roundToInt()
-        val hours = resultInt % 86488 / 3600
-        val minutes = resultInt % 86488 % 3600 / 60
-        val seconds = resultInt % 86488 % 3600 % 60
-        return makeTimeString(hours, minutes, seconds)
-    }
-
-    private fun makeTimeString(hours: Int, minutes: Int, seconds: Int): String =
-        String.format("%02d:%02d:%02d", hours, minutes, seconds)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
