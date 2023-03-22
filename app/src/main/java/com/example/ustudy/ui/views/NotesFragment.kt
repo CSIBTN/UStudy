@@ -30,15 +30,24 @@ class NotesFragment : Fragment() {
         }
     private val studyViewModel: StudyViewModel by activityViewModels()
 
+    private val openNoteEditor: (note: Note) -> Unit = { note ->
+        findNavController().navigate(
+            R.id.createNote, args = bundleOf(NOTE_TAG to note)
+        )
+    }
+
+
+    private val deleteNote: (note: Note) -> Unit = { note ->
+        viewLifecycleOwner.lifecycleScope.launch {
+            studyViewModel.deleteNote(note)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _notesBinding = FragmentNotesBinding.inflate(inflater, container, false)
-        notesBinding.fabCreateNote.setOnClickListener {
-            findNavController().navigate(
-                R.id.createNote
-            )
-        }
+
         notesBinding.rvNotes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         return notesBinding.root
@@ -56,16 +65,11 @@ class NotesFragment : Fragment() {
         }
     }
 
-    private val openNoteEditor: (note: Note) -> Unit = { note ->
-        findNavController().navigate(
-            R.id.createNote, args = bundleOf(NOTE_TAG to note)
-        )
-    }
-
-
-    private val deleteNote: (note: Note) -> Unit = { note ->
-        viewLifecycleOwner.lifecycleScope.launch {
-            studyViewModel.deleteNote(note)
+    private fun setUpFloatingButtonListener() {
+        notesBinding.fabCreateNote.setOnClickListener {
+            findNavController().navigate(
+                R.id.createNote
+            )
         }
     }
 

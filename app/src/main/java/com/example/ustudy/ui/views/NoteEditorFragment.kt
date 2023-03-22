@@ -1,11 +1,10 @@
 package com.example.ustudy.ui.views
 
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -23,6 +22,7 @@ import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class NoteEditorFragment : Fragment() {
+
     private var _noteEditorBinding: FragmentNoteEditorBinding? = null
     private val noteEditorBinding: FragmentNoteEditorBinding
         get() = checkNotNull(_noteEditorBinding) {
@@ -30,13 +30,16 @@ class NoteEditorFragment : Fragment() {
         }
     private val studyViewModel: StudyViewModel by activityViewModels()
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _noteEditorBinding = FragmentNoteEditorBinding.inflate(inflater, container, false)
-
         setEditFieldsIfNeeded()
+        setUpSaveNoteListener()
+        return noteEditorBinding.root
+    }
+
+    private fun setUpSaveNoteListener() {
         noteEditorBinding.ivFinishedEditingIcon.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -49,7 +52,6 @@ class NoteEditorFragment : Fragment() {
                 }
             }
         }
-        return noteEditorBinding.root
     }
 
     private fun setEditFieldsIfNeeded() {
@@ -59,8 +61,8 @@ class NoteEditorFragment : Fragment() {
                 noteEditorBinding.tiTitle.setText(noteToEdit.title)
                 noteEditorBinding.tiNoteContent.setText(noteToEdit.content)
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Log.e("NoArguments", "$e")
         }
-
     }
 }
