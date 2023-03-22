@@ -1,4 +1,4 @@
-package com.example.ustudy
+package com.example.ustudy.ui.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,15 +8,16 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.graphics.ColorUtils
+import com.example.ustudy.R
 
 class Note(
     context: Context,
     attributeSet: AttributeSet,
-    attributeStyle: Int,
-) : View(context, attributeSet, attributeStyle) {
+) : View(context, attributeSet) {
 
     private val rectanglePath: Path = Path()
     private val cutCornerSize = 30F
+    private val cornerRadius = 20F
     private val customPaint = Paint()
     private val customPaint2 = Paint()
 
@@ -50,8 +51,8 @@ class Note(
             0f,
             width.toFloat(),
             height.toFloat(),
-            dpToPx(10F),
-            dpToPx(10F),
+            dpToPx(cornerRadius),
+            dpToPx(cornerRadius),
             customPaint
         )
         customPaint2.color = ColorUtils.blendARGB(customPaint.color, 0x000000, 0.2F)
@@ -60,8 +61,8 @@ class Note(
             -50f,
             width.toFloat(),
             dpToPx(cutCornerSize) + cutCornerSize,
-            dpToPx(10F),
-            dpToPx(10F),
+            dpToPx(cornerRadius - 10),
+            dpToPx(cornerRadius - 10),
             customPaint2
         )
 

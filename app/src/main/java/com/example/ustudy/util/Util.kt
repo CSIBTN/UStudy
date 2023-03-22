@@ -3,6 +3,9 @@ package com.example.ustudy.util
 import kotlin.math.roundToInt
 
 object Util {
+
+    const val NOTE_TAG = "edit_note"
+    const val DATABASE_NAME = "study_database"
     const val POMODORO_CHANNEL_ID = "pomodoro"
     const val POMODORO_NOTIFICATION_ID = 1
     const val DEFAULT_POMODORO_TIME = 1500.0;
