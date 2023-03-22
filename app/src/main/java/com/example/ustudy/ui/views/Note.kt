@@ -1,4 +1,4 @@
-package com.example.ustudy
+package com.example.ustudy.ui.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,6 +8,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.graphics.ColorUtils
+import com.example.ustudy.R
 
 class Note(
     context: Context,

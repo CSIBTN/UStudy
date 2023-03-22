@@ -11,7 +11,11 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.example.ustudy.ui.views.NotesFragment"
-        android:label="NotesFragment" />
+        android:label="NotesFragment" >
+        <action
+            android:id="@+id/createNote"
+            app:destination="@id/noteEditorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.ustudy.ui.views.CalendarFragment"
@@ -20,4 +24,8 @@
         android:id="@+id/statisticsFragment"
         android:name="com.example.ustudy.ui.views.StatisticsFragment"
         android:label="StatisticsFragment" />
+    <fragment
+        android:id="@+id/noteEditorFragment"
+        android:name="com.example.ustudy.ui.views.NoteEditorFragment"
+        android:label="NoteEditorFragment" />
 </navigation>

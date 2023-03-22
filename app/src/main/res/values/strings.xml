@@ -2,6 +2,11 @@
     <string name="app_name">UStudy</string>
     <string name="pomodoro_desc">pomodoro</string>
     <string name="time">%1$d:%2$d:%3$d</string>
+    <string name="fab_note_desc">create a note</string>
+    <string name="title_hint">Title</string>
+    <string name="note_content_hint">Start typing</string>
+    <string name="iv_finished_editing_desc">save finished note</string>
+    <string name="iv_delete_icon_desc">delete note</string>
     <string-array name="timer_list">
         <item>00:25:00</item>
         <item>00:30:00</item>
