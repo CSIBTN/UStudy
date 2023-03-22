@@ -4,6 +4,7 @@ import kotlin.math.roundToInt
 
 object Util {
 
+    const val NOTE_TAG = "edit_note"
     const val DATABASE_NAME = "study_database"
     const val POMODORO_CHANNEL_ID = "pomodoro"
     const val POMODORO_NOTIFICATION_ID = 1

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
 
 
     <com.example.ustudy.ui.views.Note
@@ -15,7 +16,7 @@
         app:noteColor="#FFEC5A" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView"
+        android:id="@+id/note_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -30,6 +31,7 @@
         tools:text="Title" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/note_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -41,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/note"
         app:layout_constraintEnd_toEndOf="@+id/note"
         app:layout_constraintStart_toStartOf="@+id/note"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+        app:layout_constraintTop_toBottomOf="@+id/note_title"
         tools:text="SOME TEXT ABOUT OUR NOTE! TO DO : 1 2 3 4 5" />
 
     <ImageView
@@ -49,9 +51,9 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_margin="8dp"
+        android:contentDescription="@string/iv_delete_icon_desc"
         android:src="@drawable/delete_ic"
         app:layout_constraintBottom_toBottomOf="@+id/note"
-        app:layout_constraintEnd_toEndOf="@+id/note"
-        android:contentDescription="@string/iv_delete_icon_desc" />
+        app:layout_constraintEnd_toEndOf="@+id/note" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

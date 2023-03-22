@@ -1,8 +1,11 @@
 package com.example.ustudy.data.local
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity
 data class Note(
     @PrimaryKey
@@ -10,4 +13,4 @@ data class Note(
     val title: String,
     val content: String,
     val lastUpdatedDate: String
-)
+) : Parcelable

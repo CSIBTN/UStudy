@@ -13,8 +13,7 @@ import com.example.ustudy.R
 class Note(
     context: Context,
     attributeSet: AttributeSet,
-    attributeStyle: Int,
-) : View(context, attributeSet, attributeStyle) {
+) : View(context, attributeSet) {
 
     private val rectanglePath: Path = Path()
     private val cutCornerSize = 30F
