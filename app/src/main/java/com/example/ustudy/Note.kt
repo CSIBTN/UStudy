@@ -17,6 +17,7 @@ class Note(
 
     private val rectanglePath: Path = Path()
     private val cutCornerSize = 30F
+    private val cornerRadius = 20F
     private val customPaint = Paint()
     private val customPaint2 = Paint()
 
@@ -50,8 +51,8 @@ class Note(
             0f,
             width.toFloat(),
             height.toFloat(),
-            dpToPx(10F),
-            dpToPx(10F),
+            dpToPx(cornerRadius),
+            dpToPx(cornerRadius),
             customPaint
         )
         customPaint2.color = ColorUtils.blendARGB(customPaint.color, 0x000000, 0.2F)
@@ -60,8 +61,8 @@ class Note(
             -50f,
             width.toFloat(),
             dpToPx(cutCornerSize) + cutCornerSize,
-            dpToPx(10F),
-            dpToPx(10F),
+            dpToPx(cornerRadius - 10),
+            dpToPx(cornerRadius - 10),
             customPaint2
         )
 
