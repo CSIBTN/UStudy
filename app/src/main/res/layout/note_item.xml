@@ -7,7 +7,7 @@
     android:paddingBottom="10dp">
 
 
-    <com.example.ustudy.ui.views.Note
+    <com.example.ustudy.ui.views.NoteView
         android:id="@+id/note"
         android:layout_width="match_parent"
         android:layout_height="200dp"
