@@ -16,10 +16,15 @@
             android:id="@+id/createNote"
             app:destination="@id/noteEditorFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.ustudy.ui.views.CalendarFragment"
-        android:label="CalendarFragment" />
+        android:label="CalendarFragment" >
+        <action
+            android:id="@+id/createTask"
+            app:destination="@id/editTaskDialog" />
+    </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.example.ustudy.ui.views.StatisticsFragment"
@@ -28,4 +33,8 @@
         android:id="@+id/noteEditorFragment"
         android:name="com.example.ustudy.ui.views.NoteEditorFragment"
         android:label="NoteEditorFragment" />
+    <dialog
+        android:id="@+id/editTaskDialog"
+        android:name="com.example.ustudy.ui.views.EditTaskDialog"
+        android:label="EditTaskDialog" />
 </navigation>

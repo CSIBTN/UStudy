@@ -10,7 +10,7 @@ import android.view.View
 import androidx.core.graphics.ColorUtils
 import com.example.ustudy.R
 
-class Note(
+class NoteView(
     context: Context,
     attributeSet: AttributeSet,
 ) : View(context, attributeSet) {
@@ -68,6 +68,8 @@ class Note(
 
     }
 
-    private fun dpToPx(dp: Float) = dp * resources.displayMetrics.density
+    private fun dpToPx(dp: Float) =
+        dp * resources.displayMetrics.density
+
 }
 

@@ -13,6 +13,7 @@ object Util {
     const val LONG_POMODORO_TIME = 3600.0;
     const val CRAMMING_POMODORO_TIME = 5400.0;
 
+
     fun getTimeStringFromDouble(time: Double): String {
         val resultInt = time.roundToInt()
         val hours = resultInt % 86488 / 3600

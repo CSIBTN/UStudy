@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.ustudy.data.local.Note
 import com.example.ustudy.databinding.FragmentNoteEditorBinding
-import com.example.ustudy.ui.viewmodels.StudyViewModel
+import com.example.ustudy.ui.viewmodels.NotesViewModel
 import com.example.ustudy.util.Util
 import com.example.ustudy.util.Util.NOTE_TAG
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class NoteEditorFragment : Fragment() {
         get() = checkNotNull(_noteEditorBinding) {
             Util.bindingErrorMessage("notes-editor")
         }
-    private val studyViewModel: StudyViewModel by activityViewModels()
+    private val notesViewModel: NotesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,7 +48,7 @@ class NoteEditorFragment : Fragment() {
                     val date = "${LocalDate.now().month} ${LocalDate.now().dayOfMonth} ${
                         LocalDateTime.now().toLocalTime().hour
                     }:${LocalDateTime.now().toLocalTime().minute}"
-                    studyViewModel.createNewNote(title = title, content = content, date = date)
+                    notesViewModel.createNewNote(title = title, content = content, date = date)
                 }
             }
         }

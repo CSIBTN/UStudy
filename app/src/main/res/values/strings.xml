@@ -7,6 +7,9 @@
     <string name="note_content_hint">Start typing</string>
     <string name="iv_finished_editing_desc">save finished note</string>
     <string name="iv_delete_icon_desc">delete note</string>
+    <string name="add_task_icon_desc">add task</string>
+    <string name="save_btn_text">Save</string>
+    <string name="task_hint">Enter your task</string>
     <string-array name="timer_list">
         <item>00:25:00</item>
         <item>00:30:00</item>

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ustudy.R
 import com.example.ustudy.data.local.Note
 import com.example.ustudy.databinding.FragmentNotesBinding
-import com.example.ustudy.ui.viewmodels.StudyViewModel
+import com.example.ustudy.ui.viewmodels.NotesViewModel
 import com.example.ustudy.util.Util
 import com.example.ustudy.util.Util.NOTE_TAG
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class NotesFragment : Fragment() {
         get() = checkNotNull(_notesBinding) {
             Util.bindingErrorMessage("notes")
         }
-    private val studyViewModel: StudyViewModel by activityViewModels()
+    private val notesViewModel: NotesViewModel by activityViewModels()
 
     private val openNoteEditor: (note: Note) -> Unit = { note ->
         findNavController().navigate(
@@ -39,7 +39,7 @@ class NotesFragment : Fragment() {
 
     private val deleteNote: (note: Note) -> Unit = { note ->
         viewLifecycleOwner.lifecycleScope.launch {
-            studyViewModel.deleteNote(note)
+            notesViewModel.deleteNote(note)
         }
     }
 
@@ -47,7 +47,7 @@ class NotesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _notesBinding = FragmentNotesBinding.inflate(inflater, container, false)
-
+        setUpFloatingButtonListener()
         notesBinding.rvNotes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         return notesBinding.root
@@ -57,7 +57,7 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                studyViewModel.notes.collect { newNotes ->
+                notesViewModel.notes.collect { newNotes ->
                     notesBinding.rvNotes.adapter =
                         NotesAdapter(newNotes, openNoteEditor, deleteNote)
                 }
