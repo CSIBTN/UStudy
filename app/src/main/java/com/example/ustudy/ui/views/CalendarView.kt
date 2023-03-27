@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.example.ustudy.data.local.Task
 
 private const val CALENDAR_COLUMNS = 7
 private const val CALENDAR_ROWS = 5
